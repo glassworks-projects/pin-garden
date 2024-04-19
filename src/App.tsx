@@ -57,7 +57,6 @@ function App() {
               marginX: "2rem",
             }}
           >
-            {/* {images.filter((image) => parents.get(image.props.id) == undefined)} */}
             {images.map((image, idx) =>
               parents.get(`draggable-${idx}`) == undefined ? (
                 <DraggableImage url={image} id={`draggable-${idx}`} key={idx} />
@@ -67,10 +66,6 @@ function App() {
           <div className="grid grid-cols-6 grid-rows-equal-spacing gap-1">
             {containers.map((id) => (
               <GridSpace id={`droppable-${id}`} key={id}>
-                {/* {images.filter(
-                  (image) => parents.get(image.props.id) == `droppable-${id}`
-                )}
-                 */}{" "}
                 {images.map((image, idx) =>
                   parents.get(`draggable-${idx}`) == `droppable-${id}` ? (
                     <DraggableImage
