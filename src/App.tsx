@@ -1,6 +1,6 @@
 import "./App.css";
 import { Masonry } from "@mui/lab";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, UniqueIdentifier } from "@dnd-kit/core";
 import GridSpace from "./components/GridSpace";
 import DraggableImage from "./components/DraggableImage";
 import { useState } from "react";
@@ -16,19 +16,27 @@ function App() {
     <DraggableImage url={image} id={`draggable-${idx}`} key={idx} />
   ));
 
-  const containers = [0, 1];
-  const [parents, setParents] = useState<Record<string, string | undefined>>(
-    {}
+  const containers = Array.from({ length: 18 }, (_, i) => i);
+  const [parents, setParents] = useState<Map<string, string | undefined>>(
+    new Map()
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (event.active) {
-      const newParents = { ...parents };
-      newParents[event.active.id as string] =
-        (event.over?.id as string) || undefined;
+      const newParents = new Map(parents);
+      // const over = event.over?.id;
+
+      newParents.set(
+        event.active.id as string,
+        (event.over?.id as string) || undefined
+      );
       setParents(newParents);
     }
   };
+
+  // const spaceIsFull = (id: UniqueIdentifier): boolean => {
+  //   return [...parents.values()].includes(id as string);
+  // };
 
   return (
     <>
@@ -42,15 +50,17 @@ function App() {
               marginX: "2rem",
             }}
           >
-            {images.filter((image) => parents[image.props.id] == undefined)}
+            {images.filter((image) => parents.get(image.props.id) == undefined)}
           </Masonry>
-          {containers.map((id) => (
-            <GridSpace id={id} key={id}>
-              {images.filter(
-                (image) => parents[image.props.id] == `droppable-${id}`
-              )}
-            </GridSpace>
-          ))}
+          <div className="grid grid-cols-6 grid-rows-equal-spacing gap-1">
+            {containers.map((id) => (
+              <GridSpace id={`droppable-${id}`} key={id}>
+                {images.filter(
+                  (image) => parents.get(image.props.id) == `droppable-${id}`
+                )}
+              </GridSpace>
+            ))}
+          </div>
         </div>
       </DndContext>
     </>

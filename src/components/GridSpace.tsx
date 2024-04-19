@@ -2,13 +2,17 @@ import React from "react";
 import { useDroppable } from "@dnd-kit/core";
 
 export default function GridSpace(props: {
-  id: number;
+  id: string;
   children: React.ReactNode;
 }) {
-  const { isOver, setNodeRef } = useDroppable({ id: `droppable-${props.id}` });
+  const { isOver, setNodeRef } = useDroppable({ id: props.id });
 
   return (
-    <div ref={setNodeRef} className="h-48 w-48 bg-zinc-900 rounded m-4">
+    <div
+      ref={setNodeRef}
+      id={props.id}
+      className="h-40 w-40 bg-dark-grey rounded-md"
+    >
       {props.children}
     </div>
   );
