@@ -1,7 +1,11 @@
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
-export default function DraggableImage(props: { url: string; id: string }) {
+export default function DraggableImage(props: {
+  url: string;
+  id: string;
+  className?: string;
+}) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: props.id,
   });
@@ -19,7 +23,7 @@ export default function DraggableImage(props: { url: string; id: string }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="rounded"
+      className={`rounded ${props.className || ""}`}
     />
   );
 }
