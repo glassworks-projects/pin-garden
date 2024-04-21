@@ -11,7 +11,9 @@ export default function GridSpace(props: {
     <div
       ref={setNodeRef}
       id={props.id}
-      className="h-40 w-40 bg-dark-grey rounded-md"
+      className={`h-40 w-40 border border-light-grey/light rounded-md bg-${
+        isOver ? "hover" : "dark"
+      }-grey`}
     >
       {props.children}
     </div>

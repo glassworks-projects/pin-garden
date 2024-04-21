@@ -53,8 +53,9 @@ function App() {
             columns={3}
             spacing={0.5}
             sx={{
-              maxWidth: "28rem",
-              marginX: "2rem",
+              maxWidth: "450px",
+              marginX: "32px",
+              minHeight: "800px",
             }}
           >
             {images.map((image, idx) =>
@@ -63,7 +64,7 @@ function App() {
               ) : null
             )}
           </Masonry>
-          <div className="grid grid-cols-6 grid-rows-equal-spacing gap-1">
+          <div className="grid grid-cols-6 grid-rows-equal-spacing gap-2">
             {containers.map((id) => (
               <GridSpace id={`droppable-${id}`} key={id}>
                 {images.map((image, idx) =>
