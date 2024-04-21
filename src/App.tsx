@@ -18,6 +18,8 @@ function App() {
   const containers = Array.from({ length: 18 }, (_, i) => `droppable-${i}`);
   const [gridMap, setGridMap] = useState<GridMap>(new GridMap());
 
+  const draggableName = (idx: number): string => `draggable-${idx}`;
+
   const handleDragEnd = (event: DragEndEvent): void => {
     if (!event.active) return;
     const newGridMap = new GridMap(gridMap);
@@ -27,7 +29,11 @@ function App() {
     setGridMap(newGridMap);
   };
 
-  const draggableName = (idx: number): string => `draggable-${idx}`;
+  const clearSpace = (id: string): void => {
+    const newGridMap = new GridMap(gridMap);
+    newGridMap.clearSpace(id);
+    setGridMap(newGridMap);
+  };
 
   return (
     <>
@@ -51,7 +57,7 @@ function App() {
           </Masonry>
           <div className="grid grid-cols-6 min-w-max w-fit h-fit gap-2">
             {containers.map((id) => (
-              <GridSpace id={id} key={id}>
+              <GridSpace id={id} key={id} clickHandler={() => clearSpace(id)}>
                 {images.map((image, idx) =>
                   gridMap.get(draggableName(idx)) == id ? (
                     <DraggableImage

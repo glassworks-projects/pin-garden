@@ -32,4 +32,12 @@ export default class GridMap {
     }
     this.assetSpaces.set(asset, gridSpace);
   }
+
+  clearSpace(gridSpace: string): void {
+    const oldAsset = this.gridAssets.get(gridSpace);
+    if (oldAsset) {
+      this.assetSpaces.set(oldAsset, undefined);
+    }
+    this.gridAssets.set(gridSpace, undefined);
+  }
 }
