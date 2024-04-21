@@ -48,14 +48,15 @@ function App() {
   return (
     <>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="flex flex-row">
+        <div className="flex flex-row overflow-auto">
           <Masonry
             columns={3}
             spacing={0.5}
             sx={{
-              maxWidth: "450px",
+              width: "450px",
               marginX: "32px",
               minHeight: "800px",
+              flexShrink: 0,
             }}
           >
             {images.map((image, idx) =>
@@ -64,7 +65,7 @@ function App() {
               ) : null
             )}
           </Masonry>
-          <div className="grid grid-cols-6 grid-rows-equal-spacing gap-2">
+          <div className="grid grid-cols-6 min-w-max w-fit h-fit overflow-clip gap-2">
             {containers.map((id) => (
               <GridSpace id={`droppable-${id}`} key={id}>
                 {images.map((image, idx) =>

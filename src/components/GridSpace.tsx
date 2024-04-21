@@ -6,14 +6,13 @@ export default function GridSpace(props: {
   children: React.ReactNode;
 }) {
   const { isOver, setNodeRef } = useDroppable({ id: props.id });
+  const bgColor = isOver ? "bg-hover-grey" : "bg-dark-grey";
 
   return (
     <div
       ref={setNodeRef}
       id={props.id}
-      className={`h-40 w-40 border border-light-grey/light rounded-md bg-${
-        isOver ? "hover" : "dark"
-      }-grey`}
+      className={`h-36 w-36 border border-light-grey/light rounded-md ${bgColor}`}
     >
       {props.children}
     </div>
