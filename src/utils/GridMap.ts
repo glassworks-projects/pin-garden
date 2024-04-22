@@ -12,10 +12,7 @@ export default class GridMap {
   }
 
   get(key: string): string | undefined {
-    if (this.gridAssets.has(key)) {
-      return this.gridAssets.get(key)!;
-    }
-    return this.assetSpaces.get(key);
+    return this.gridAssets.get(key) || this.assetSpaces.get(key);
   }
 
   set(gridSpace: string | undefined, asset: string): void {
@@ -24,10 +21,7 @@ export default class GridMap {
       this.gridAssets.set(oldSpace, undefined);
     }
     if (gridSpace) {
-      const oldImage = this.gridAssets.get(gridSpace);
-      if (oldImage) {
-        this.assetSpaces.set(oldImage, undefined);
-      }
+      this.clearSpace(gridSpace);
       this.gridAssets.set(gridSpace, asset);
     }
     this.assetSpaces.set(asset, gridSpace);

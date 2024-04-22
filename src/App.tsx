@@ -38,7 +38,7 @@ function App() {
   return (
     <>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="flex flex-row overflow-auto">
+        <div className="flex flex-row">
           <Masonry
             columns={3}
             spacing={0.5}
