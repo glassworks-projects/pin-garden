@@ -49,24 +49,30 @@ function App() {
               flexShrink: 0,
             }}
           >
-            {images.map((image, idx) =>
-              gridMap.get(draggableName(idx)) == undefined ? (
-                <DraggableImage url={image} id={draggableName(idx)} key={idx} />
-              ) : null
+            {images.map(
+              (image, idx) =>
+                gridMap.get(draggableName(idx)) == undefined && (
+                  <DraggableImage
+                    url={image}
+                    id={draggableName(idx)}
+                    key={idx}
+                  />
+                )
             )}
           </Masonry>
           <div className="grid grid-cols-6 min-w-max w-fit h-fit gap-2">
             {containers.map((id) => (
               <GridSpace id={id} key={id} clickHandler={() => clearSpace(id)}>
-                {images.map((image, idx) =>
-                  gridMap.get(draggableName(idx)) == id ? (
-                    <DraggableImage
-                      url={image}
-                      id={draggableName(idx)}
-                      key={idx}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : null
+                {images.map(
+                  (image, idx) =>
+                    gridMap.get(draggableName(idx)) == id && (
+                      <DraggableImage
+                        url={image}
+                        id={draggableName(idx)}
+                        key={idx}
+                        className="h-full w-full object-cover"
+                      />
+                    )
                 )}
               </GridSpace>
             ))}
